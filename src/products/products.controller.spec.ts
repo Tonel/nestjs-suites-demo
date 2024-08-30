@@ -3,12 +3,12 @@ import { ProductsController } from './products.controller';
 import { ProductsService } from './products.service';
 import { Product } from './entities/product.entity';
 
-describe('Product Controller Unit Spec', () => {
+describe('Products Controller Unit Spec', () => {
   // declare the unit under test
-  let productController: ProductsController;
+  let productsController: ProductsController;
 
   // declare a mock dependency
-  let productService: Mocked<ProductsService>;
+  let productsService: Mocked<ProductsService>;
 
   beforeAll(async () => {
     // create an isolated test environment for the unit under test
@@ -16,10 +16,10 @@ describe('Product Controller Unit Spec', () => {
       await TestBed.solitary(ProductsController).compile();
 
     // assign the unit to test
-    productController = unit;
+    productsController = unit;
 
     // assign the a dependency to mock from the unit reference
-    productService = unitRef.get(ProductsService);
+    productsService = unitRef.get(ProductsService);
   });
 
   test('should return 3 products', async () => {
@@ -48,14 +48,14 @@ describe('Product Controller Unit Spec', () => {
     ];
     // mock the findAll() method so that it returns
     // the expected data
-    productService.findAll.mockReturnValue(mockedProducts);
+    productsService.findAll.mockReturnValue(mockedProducts);
 
     // call the function to test
-    const products = await productController.getAll();
+    const products = await productsController.getAll();
 
     // verify that the mocked service method
     // has been called as expected
-    expect(productService.findAll).toHaveBeenCalled();
+    expect(productsService.findAll).toHaveBeenCalled();
     // verify that it return the expected data
     expect(products).toEqual(mockedProducts);
   });

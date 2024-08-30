@@ -15,23 +15,24 @@ import { Product } from './entities/product.entity';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productService: ProductsService) {}
+  constructor(private productsService: ProductsService) {}
+
   @Post()
   @HttpCode(HttpStatus.CREATED)
   async create(
     @Body() createProductDto: Omit<Product, 'id'>,
   ): Promise<Product> {
-    return this.productService.create(createProductDto);
+    return this.productsService.create(createProductDto);
   }
 
   @Get()
   async getAll(): Promise<Product[]> {
-    return this.productService.findAll();
+    return this.productsService.findAll();
   }
 
   @Get(':id')
   async getOne(@Param('id') id: string): Promise<Product> {
-    const product = this.productService.findById(id);
+    const product = this.productsService.findById(id);
     if (!product) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
@@ -43,7 +44,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() updateProductDto: Partial<Omit<Product, 'id'>>,
   ): Promise<Product> {
-    const updatedProduct = this.productService.update(id, updateProductDto);
+    const updatedProduct = this.productsService.update(id, updateProductDto);
     if (!updatedProduct) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
@@ -53,7 +54,7 @@ export class ProductsController {
   @Delete(':id')
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id') id: string): Promise<void> {
-    const deleted = this.productService.delete(id);
+    const deleted = this.productsService.delete(id);
     if (!deleted) {
       throw new NotFoundException(`Product with ID ${id} not found`);
     }
