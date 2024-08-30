@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { InMemoryDBModule } from '@trustswap/nestjs-in-memory-db';
 import { ProductsController } from './products.controller';
+import { ProductsService } from './products.service';
 
 @Module({
   controllers: [ProductsController],
-  imports: [InMemoryDBModule.forFeature('products')],
+  providers: [ProductsService],
 })
 export class ProductsModule {}
